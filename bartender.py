@@ -1,5 +1,6 @@
-def ingredients():
+import random
 
+def find_preferences():
    questions = {
        "strong": "Do ye like yer drinks strong?",
        "salty": "Do ye like it with a salty tang?",
@@ -7,19 +8,16 @@ def ingredients():
        "sweet": "Would ye like a bit of sweetness with yer poison?",
        "fruity": "Are ye one for a fruity finish?"
 }
-
-   prefs = {}
-   for q in questions:
-      ans = raw_input(questions[q])
+   preferences = {}
+   for question in questions:
+      ans = raw_input(questions[question])
       if ans == 'yes' or ans == 'y':
-          prefs[q] = True
+          preferences[question] = True
       else:
-          prefs[q] = False
-   return prefs
+          preferences[question] = False
+   return preferences
 
-
-
-def mixologist(a):
+def make_drinks(preferences):
 
   ingredients = {
     "strong": ["glug of rum", "slug of whisky", "splash of gin"],
@@ -28,14 +26,18 @@ def mixologist(a):
     "sweet": ["sugar cube", "spoonful of honey", "spash of cola"],
     "fruity": ["slice of orange", "dash of cassis", "cherry on top"]
 }
-  drink = []
-  for x in a:
-      if (a[x]) == True:
-          drink.append(random.choice(ingredients[x]))
-  print(drink)
-   
+  drink_ingredients = []
+  for x in preferences:
+      if (preferences[x]) == True:
+          drink_ingredients.append(random.choice(ingredients[x]))
+  return drink_ingredients
+
+def main():
+  preferences = find_preferences()
+  drink = make_drinks(preferences)
+
+  for ingredient in drink:
+      print "A {}".format(ingredient)
 if __name__ == '__main__':
-  import random
-  flavors = ingredients()
-  mixologist(flavors)
+  main()  
 
